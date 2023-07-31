@@ -68,9 +68,9 @@ trait Actionable {
 
     fn get_item(&mut self, x: usize, y: usize) -> &mut Self::T;
 
-    fn on_on(v: &mut Self::T) -> ();
-    fn on_off(v: &mut Self::T) -> ();
-    fn on_toggle(v: &mut Self::T) -> ();
+    fn on_on(v: &mut Self::T);
+    fn on_off(v: &mut Self::T);
+    fn on_toggle(v: &mut Self::T);
 
     fn do_action(&mut self, action: &Action) {
         let func = match action.t {
@@ -93,15 +93,15 @@ impl Actionable for Grid<bool> {
         &mut self.0[x][y]
     }
 
-    fn on_on(v: &mut Self::T) -> () {
+    fn on_on(v: &mut Self::T) {
         *v = true
     }
 
-    fn on_off(v: &mut Self::T) -> () {
+    fn on_off(v: &mut Self::T) {
         *v = false
     }
 
-    fn on_toggle(v: &mut Self::T) -> () {
+    fn on_toggle(v: &mut Self::T) {
         *v = !*v
     }
 }
@@ -114,7 +114,7 @@ impl Grid<bool> {
         let mut res = 0;
         for x in 0..1000 {
             for y in 0..1000 {
-                if self.0[x][y] == true {
+                if self.0[x][y] {
                     res += 1;
                 }
             }
@@ -130,15 +130,15 @@ impl Actionable for Grid<i32> {
         &mut self.0[x][y]
     }
 
-    fn on_on(v: &mut Self::T) -> () {
+    fn on_on(v: &mut Self::T) {
         *v += 1
     }
 
-    fn on_off(v: &mut Self::T) -> () {
+    fn on_off(v: &mut Self::T) {
         *v = (*v - 1).max(0)
     }
 
-    fn on_toggle(v: &mut Self::T) -> () {
+    fn on_toggle(v: &mut Self::T) {
         *v += 2
     }
 }
