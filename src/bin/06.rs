@@ -123,8 +123,8 @@ impl Grid<bool> {
     }
 }
 
-impl Actionable for Grid<i32> {
-    type T = i32;
+impl Actionable for Grid<i8> {
+    type T = i8;
 
     fn get_item(&mut self, x: usize, y: usize) -> &mut Self::T {
         &mut self.0[x][y]
@@ -143,7 +143,7 @@ impl Actionable for Grid<i32> {
     }
 }
 
-impl Grid<i32> {
+impl Grid<i8> {
     fn new() -> Self {
         Grid([[0; 1000]; 1000])
     }
@@ -170,7 +170,7 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    let mut grid = Grid::<i32>::new();
+    let mut grid = Grid::<i8>::new();
 
     let actions = input.lines().map(|line| line.parse::<Action>().unwrap());
     for action in actions {
@@ -198,6 +198,6 @@ mod tests {
     #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 6);
-        assert_eq!(part_two(&input), Some(1));
+        assert_eq!(part_two(&input), Some(1001996));
     }
 }
