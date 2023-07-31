@@ -1,23 +1,24 @@
 pub fn part_one(input: &str) -> Option<i32> {
-    let up = input.chars().filter(|c| *c == '(').count();
-    let down = input.chars().filter(|c| *c == ')').count();
-    Some((up - down) as i32)
+    let up = input.chars().filter(|c| *c == '(').count() as i32;
+    let down = input.chars().filter(|c| *c == ')').count() as i32;
+    Some(up - down)
 }
 
 pub fn part_two(input: &str) -> Option<i32> {
     let mut cur_floor_pos = 0;
 
     for (idx, c) in input.chars().enumerate() {
-        if cur_floor_pos == -1 {
-            return Some(idx as i32);
-        }
-
         if c == '(' {
             cur_floor_pos += 1;
         } else {
             cur_floor_pos -= 1;
         }
+
+        if cur_floor_pos == -1 {
+            return Some((idx + 1) as i32);
+        }
     }
+
     panic!()
 }
 
