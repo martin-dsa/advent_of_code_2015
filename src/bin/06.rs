@@ -1,17 +1,17 @@
 use std::{convert::Infallible, str::FromStr};
 
 enum ActionType {
-    ON,
-    OFF,
-    TOGGLE,
+    On,
+    Off,
+    Toggle,
 }
 impl FromStr for ActionType {
     type Err = Infallible;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Ok(match s {
-            "on" => ActionType::ON,
-            "off" => ActionType::OFF,
+            "on" => ActionType::On,
+            "off" => ActionType::Off,
             _ => panic!(),
         })
     }
@@ -46,7 +46,7 @@ impl FromStr for Action {
         let words = s.split_whitespace().collect::<Vec<_>>();
         match words.len() {
             4 => Ok(Self {
-                t: ActionType::TOGGLE,
+                t: ActionType::Toggle,
                 from: words[1].parse().unwrap(),
                 to: words[3].parse().unwrap(),
             }),
@@ -74,9 +74,9 @@ trait Actionable {
 
     fn do_action(&mut self, action: &Action) {
         let func = match action.t {
-            ActionType::ON => Self::on_on,
-            ActionType::OFF => Self::on_off,
-            ActionType::TOGGLE => Self::on_toggle,
+            ActionType::On => Self::on_on,
+            ActionType::Off => Self::on_off,
+            ActionType::Toggle => Self::on_toggle,
         };
 
         for x in action.from.x..=action.to.x {
