@@ -74,7 +74,7 @@ fn get_max_score(names: &Names, connections: &Connections) -> i32 {
         .iter()
         .permutations(names.len())
         .unique()
-        .map(|p| get_score(p, &connections))
+        .map(|p| get_score(p, connections))
         .max()
         .unwrap()
 }
