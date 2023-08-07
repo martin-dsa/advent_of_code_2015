@@ -41,7 +41,7 @@ fn ingr_it() -> impl Iterator<Item = [i64; 4]> {
     })
 }
 
-fn get_sum_of_prop(ingredients: &Vec<Ingredient>, x: &[i64; 4], idx: usize) -> i64 {
+fn get_sum_of_prop(ingredients: &[Ingredient], x: &[i64; 4], idx: usize) -> i64 {
     ingredients
         .iter()
         .map(|i| i.0[idx])
