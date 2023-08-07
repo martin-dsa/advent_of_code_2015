@@ -42,11 +42,12 @@ fn ingr_it() -> impl Iterator<Item = [i64; 4]> {
 }
 
 fn get_sum_of_prop(ingredients: &Vec<Ingredient>, x: &[i64; 4], idx: usize) -> i64 {
-    let a = ingredients.iter().map(|i| i.0[idx]);
-    // println!("{:?}", a.clone().collect::<Vec<_>>());
-    let a = a.zip(x);
-    // println!("{:?}", a.clone().collect::<Vec<_>>());
-    a.map(|(a, b)| a * b).sum::<i64>()
+    ingredients
+        .iter()
+        .map(|i| i.0[idx])
+        .zip(x)
+        .map(|(a, b)| a * b)
+        .sum::<i64>()
 }
 
 pub fn part_one(input: &str) -> Option<u32> {
@@ -57,16 +58,6 @@ pub fn part_one(input: &str) -> Option<u32> {
 
     let max_val = ingr_it()
         .map(|ing_combo| {
-            println!("{:?}", &ing_combo[0..2]);
-            if ing_combo[0..2] == [44, 56] {
-                println!(
-                    "{}",
-                    [CAPACITY, DURABILITY, FLAVOR, TEXTURE]
-                        .iter()
-                        .map(|idx| get_sum_of_prop(&ingredients, &ing_combo, *idx).max(0))
-                        .product::<i64>()
-                )
-            }
             [CAPACITY, DURABILITY, FLAVOR, TEXTURE]
                 .iter()
                 .map(|idx| get_sum_of_prop(&ingredients, &ing_combo, *idx).max(0))
